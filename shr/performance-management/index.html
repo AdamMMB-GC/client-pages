@@ -320,8 +320,7 @@ function buildReceipt(sections) {
     if (a) {
       var lines = '';
       if (a.looks_great) lines += '<div style="margin-top:4px;">You ticked: this section looks great.</div>';
-      if (a.comment) lines += '<div style="margin-top:4px;"><b>Your comments:</b> ' + esc(a.comment).replace(/
-/g, '<br>') + '</div>';
+      if (a.comment) lines += '<div style="margin-top:4px;"><b>Your comments:</b> ' + esc(a.comment).replace(/\n/g, '<br>') + '</div>';
       if (!lines) lines = '<div style="margin-top:4px;color:#555555;">No response for this section.</div>';
       h += '<table width="100%" cellpadding="10" cellspacing="0" style="margin-top:10px;page-break-inside:avoid;"><tr><td bgcolor="' + TINT + '" style="background-color:' + TINT + ';border-left:4px solid ' + NAVY + ';">' +
            '<div style="font-weight:bold;color:' + NAVY + ';font-size:10.5pt;">Your response</div>' + lines + '</td></tr></table>';
