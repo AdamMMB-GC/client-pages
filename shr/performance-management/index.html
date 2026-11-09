@@ -38,22 +38,22 @@
   .copy { background:var(--navy); color:#fff; font-size:12px; padding:10px 0; text-align:center; }
   @media print { section { padding:20px 0; } .card, table, li { break-inside:avoid; } body { font-size:12.5px; } }
 
-  .fb { margin-top:18px; border:1px solid var(--line); border-left:5px solid var(--teal); border-radius:8px; padding:14px 16px; background:#fff; }
-  .fb label.tick { display:flex; align-items:center; gap:10px; font-weight:600; color:var(--navy); cursor:pointer; margin-bottom:10px; }
-  .fb input[type=checkbox] { width:20px; height:20px; accent-color:var(--teal); }
+  .fb { margin-top:18px; border:1px solid var(--line); border-left:5px solid var(--accent, var(--teal)); border-radius:8px; padding:14px 16px; background:#fff; }
+  .fb label.tick { display:flex; align-items:center; gap:10px; font-weight:600; color:var(--dark, var(--navy)); cursor:pointer; margin-bottom:10px; }
+  .fb input[type=checkbox] { width:20px; height:20px; accent-color:var(--accent, var(--teal)); }
   .fb textarea { width:100%; min-height:84px; border:1px solid var(--line); border-radius:6px; padding:10px 12px; font:inherit; font-size:14px; color:var(--ink); resize:vertical; }
-  .fb textarea:focus { outline:2px solid var(--teal); border-color:var(--teal); }
+  .fb textarea:focus { outline:2px solid var(--accent, var(--teal)); border-color:var(--accent, var(--teal)); }
   .fb .q { font-size:14px; margin:0 0 6px; }
   .submit { text-align:center; padding:10px 0 36px; }
-  .btn { display:inline-block; background:var(--teal); color:#fff; font-weight:600; font-size:16px; border:0; border-radius:8px; padding:14px 34px; cursor:pointer; font-family:inherit; }
+  .btn { display:inline-block; background:var(--accent, var(--teal)); color:#fff; font-weight:600; font-size:16px; border:0; border-radius:8px; padding:14px 34px; cursor:pointer; font-family:inherit; }
   .btn:disabled { opacity:.6; cursor:default; }
-  .btn.alt { background:#fff; color:var(--navy); border:2px solid var(--navy); }
+  .btn.alt { background:#fff; color:var(--dark, var(--navy)); border:2px solid var(--dark, var(--navy)); }
   .thanks { display:none; background:var(--tint); border-radius:8px; padding:26px 28px; margin:10px 0 30px; }
   .thanks h2 { border:0; padding:0; }
   .answered { display:none; }
   body.done .fb { display:none; } body.done .submit { display:none; } body.done .thanks { display:block; }
   body.done .answered { display:block; margin-top:14px; background:var(--tint); border-radius:8px; padding:12px 16px; font-size:14px; }
-  .answered b { color:var(--navy); }
+  .answered b { color:var(--dark, var(--navy)); }
   .err { color:#b3261e; font-size:14px; margin-top:10px; display:none; }
   @media print { .fb, .submit, .thanks { display:none !important; } .answered { display:block !important; } body { font-size:12px; } }
 </style>
@@ -80,7 +80,7 @@
     </div>
     <p class="note">Is that still right? If the focus has changed, please let me know.</p>
 
-    <div class="fb" data-section="The goal for this service">
+    <div class="fb">
       <label class="tick"><input type="checkbox" class="tick-0"> This section looks great</label>
       <p class="q">If the focus has changed, please let me know.</p>
       <textarea class="text-0" placeholder="Your thoughts, in your own words"></textarea>
@@ -133,7 +133,7 @@
       <tr><td>"One person's poor performance is dragging the whole team down."</td></tr>
     </table>
 
-    <div class="fb" data-section="The problems this service solves">
+    <div class="fb">
       <label class="tick"><input type="checkbox" class="tick-1"> This section looks great</label>
       <p class="q">Anything you'd change or add here?</p>
       <textarea class="text-1" placeholder="Your thoughts, in your own words"></textarea>
@@ -158,7 +158,7 @@
       <tr><td>For organisations past 20 staff, where several managers each handle performance their own way.</td><td>New: from our onboarding call</td></tr>
     </table>
 
-    <div class="fb" data-section="What I'd say about this service">
+    <div class="fb">
       <label class="tick"><input type="checkbox" class="tick-2"> This section looks great</label>
       <p class="q">Anything you'd change or add here?</p>
       <textarea class="text-2" placeholder="Your thoughts, in your own words"></textarea>
@@ -177,7 +177,7 @@
       <tr><td>Would any of the client quotes you're gathering speak to performance management, and may I use them for this service too?</td></tr>
     </table>
 
-    <div class="fb" data-section="The proof for this service">
+    <div class="fb">
       <label class="tick"><input type="checkbox" class="tick-3"> This section looks great</label>
       <p class="q">Anything you'd change or add here?</p>
       <textarea class="text-3" placeholder="Your thoughts, in your own words"></textarea>
@@ -197,7 +197,7 @@
       <tr><td>How soon can someone expect to hear back from you?</td></tr>
     </table>
 
-    <div class="fb" data-section="The offer for this service">
+    <div class="fb">
       <label class="tick"><input type="checkbox" class="tick-4"> This section looks great</label>
       <p class="q">Anything you'd change or add here?</p>
       <textarea class="text-4" placeholder="Your thoughts, in your own words"></textarea>
@@ -215,7 +215,7 @@
       <tr><td>Is there anything else I should not say or promise about this service?</td></tr>
     </table>
 
-    <div class="fb" data-section="Anything I shouldn't say">
+    <div class="fb">
       <label class="tick"><input type="checkbox" class="tick-5"> This section looks great</label>
       <p class="q">Anything you'd change or add here?</p>
       <textarea class="text-5" placeholder="Your thoughts, in your own words"></textarea>
@@ -234,7 +234,7 @@
     </table>
     <p class="note">Your brand questions (experience, background, sectors, wording and privacy policy) came to you separately on 06/11/2026, so they are not repeated here.</p>
 
-    <div class="fb" data-section="Anything you'd like to add">
+    <div class="fb">
       <label class="tick"><input type="checkbox" class="tick-6"> This section looks great</label>
       <p class="q">Please share anything you'd like me to know.</p>
       <textarea class="text-6" placeholder="Your thoughts, in your own words"></textarea>
@@ -262,11 +262,11 @@
 </div>
 <div class="copy">Simply Human Resources - simplyhumanresources.com.au</div>
 
-
-<script>
-// Builds the client's PDF copy: a clean, table-based document (Google's PDF converter handles tables and inline styles best).
+<script>// Service Analysis feedback page (service-enrichment rule 23). Builds the client's PDF copy: a clean, table-based document (Google's PDF converter handles tables and inline styles best).
 function buildReceipt(sections) {
-  var TEAL = '#00AEC7', NAVY = '#004172', INK = '#333333', TINT = '#EAF8FA', LINE = '#D9E3E8';
+  var cs = getComputedStyle(document.documentElement);
+  function cv(n1, n2, d) { return (cs.getPropertyValue(n1) || cs.getPropertyValue(n2) || d).trim() || d; }
+  var TEAL = cv('--accent', '--teal', '#00AEC7'), NAVY = cv('--dark', '--navy', '#004172'), INK = cv('--ink', '--ink', '#333333'), TINT = '#F1F6F8', LINE = '#D9E3E8';
   var F = 'font-family:Arial,Helvetica,sans-serif;';
   function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
   function txt(el) { return esc(el.textContent.replace(/\s+/g, ' ').trim()); }
@@ -335,7 +335,7 @@ function buildReceipt(sections) {
 }
 
 var ENDPOINT = "https://script.google.com/macros/s/AKfycbyF8qn0gY4rDJzfJg48LJFT2FTOTUeK-pYHEJUNv5cwH1hDNvVEMuMf34IlDruCcZhdPw/exec";
-var CLIENT = "Simply Human Resources", SERVICE = "Performance Management", CONTACT = "Karen";
+var CLIENT = "Simply Human Resources", CLIENT_CODE = "shr", SERVICE = "Performance Management", CONTACT = "Karen";
 var SECTIONS = ["The goal for this service", "The problems this service solves", "What I'd say about this service", "The proof for this service", "The offer for this service", "Anything I shouldn't say", "Anything you'd like to add"];
 document.getElementById('send').addEventListener('click', function(){
   var btn = this; btn.disabled = true; btn.textContent = 'Sending...';
@@ -343,12 +343,15 @@ document.getElementById('send').addEventListener('click', function(){
     var tick = document.querySelector('.tick-'+i).checked;
     var text = document.querySelector('.text-'+i).value.trim();
     var a = document.getElementById('ans-'+i);
-    a.innerHTML = '<b>' + (tick ? 'This section looks great.' : 'Not ticked.') + '</b> ' + (text ? text.replace(/</g,'&lt;').replace(/\n/g,'<br>') : '<i>No comments.</i>');
+    var parts = [];
+    if (tick) parts.push('<b>This section looks great.</b>');
+    if (text) parts.push(text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g,'<br>'));
+    a.innerHTML = parts.length ? parts.join(' ') : '<i>No response for this section.</i>';
     return {title: t, looks_great: tick, comment: text};
   });
   document.body.classList.add('done');
   var receipt = buildReceipt(sections);
-  var payload = {client: CLIENT, service: SERVICE, contact: CONTACT, test: /[?&]test=1/.test(location.search), submitted_at: new Date().toISOString(), sections: sections, receipt_html: receipt};
+  var payload = {client: CLIENT, client_code: CLIENT_CODE, service: SERVICE, contact: CONTACT, test: /[?&]test=1/.test(location.search), submitted_at: new Date().toISOString(), sections: sections, receipt_html: receipt};
   fetch(ENDPOINT, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload)})
     .then(function(){ window.scrollTo({top: document.getElementById('thanks').offsetTop - 40, behavior:'smooth'}); })
     .catch(function(){ document.body.classList.remove('done'); document.getElementById('err').style.display='block'; btn.disabled=false; btn.textContent='Send my feedback'; });
