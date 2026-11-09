@@ -264,6 +264,77 @@
 
 
 <script>
+// Builds the client's PDF copy: a clean, table-based document (Google's PDF converter handles tables and inline styles best).
+function buildReceipt(sections) {
+  var TEAL = '#00AEC7', NAVY = '#004172', INK = '#333333', TINT = '#EAF8FA', LINE = '#D9E3E8';
+  var F = 'font-family:Arial,Helvetica,sans-serif;';
+  function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function txt(el) { return esc(el.textContent.replace(/\s+/g, ' ').trim()); }
+  var logo = document.querySelector('header img').src;
+  var mmb = document.querySelector('footer img').src;
+  var today = new Date().toLocaleDateString('en-AU', { timeZone: 'Australia/Brisbane', day: '2-digit', month: '2-digit', year: 'numeric' });
+  var answers = {};
+  sections.forEach(function (s) { answers[s.title] = s; });
+
+  var h = '<html><head><meta charset="utf-8"></head><body style="' + F + 'color:' + INK + ';font-size:10.5pt;line-height:1.45;margin:0;">';
+  h += '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+       '<td width="50%" valign="middle"><img src="' + logo + '" height="62"></td>' +
+       '<td width="50%" valign="middle" align="right"><div style="font-size:20pt;font-weight:bold;color:' + INK + ';">Service Analysis</div>' +
+       '<div style="font-size:12pt;font-weight:bold;color:' + NAVY + ';">' + esc(SERVICE) + '</div>' +
+       '<div style="font-size:9pt;color:#555555;">Your feedback, received ' + today + '</div></td></tr></table>';
+  h += '<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:10px;"><tr><td height="3" bgcolor="' + TEAL + '" style="font-size:1px;line-height:1px;">&nbsp;</td></tr></table>';
+  h += '<p style="margin:14px 0 4px 0;">' + esc(CONTACT) + ', this is your copy of the service analysis and the feedback you sent me. Thank you for taking the time with it.</p>';
+
+  Array.prototype.forEach.call(document.querySelectorAll('section'), function (sec) {
+    var h2 = sec.querySelector('h2'); if (!h2) return;
+    var title = h2.textContent.trim();
+    h += '<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:18px;"><tr>' +
+         '<td width="5" bgcolor="' + TEAL + '" style="font-size:1px;">&nbsp;</td>' +
+         '<td style="padding:2px 0 2px 10px;font-size:13.5pt;font-weight:bold;color:' + INK + ';">' + esc(title) + '</td></tr></table>';
+    var wrap = sec.querySelector('.wrap');
+    Array.prototype.forEach.call(wrap.children, function (el) {
+      if (el.tagName === 'H2' || el.classList.contains('fb') || el.classList.contains('answered')) return;
+      if (el.tagName === 'P') {
+        var small = el.classList.contains('note');
+        h += '<p style="margin:8px 0 0 0;' + (small ? 'font-size:9pt;color:#555555;' : '') + '">' + txt(el) + '</p>';
+      } else if (el.classList.contains('cards')) {
+        h += '<table width="100%" cellpadding="8" cellspacing="0" style="margin-top:8px;border:1px solid ' + LINE + ';">';
+        Array.prototype.forEach.call(el.querySelectorAll('.card'), function (c, i) {
+          h += '<tr><td width="28%" valign="top" style="font-weight:bold;color:' + NAVY + ';' + (i ? 'border-top:1px solid ' + LINE + ';' : '') + '">' + txt(c.querySelector('h3')) + '</td>' +
+               '<td valign="top" style="' + (i ? 'border-top:1px solid ' + LINE + ';' : '') + '">' + txt(c.querySelector('p')) + '</td></tr>';
+        });
+        h += '</table>';
+      } else if (el.tagName === 'TABLE') {
+        h += '<table width="100%" cellpadding="7" cellspacing="0" style="margin-top:8px;border:1px solid ' + LINE + ';">';
+        Array.prototype.forEach.call(el.querySelectorAll('tr'), function (tr) {
+          h += '<tr>';
+          Array.prototype.forEach.call(tr.children, function (cell) {
+            var head = cell.tagName === 'TH';
+            h += '<td valign="top" ' + (head ? 'bgcolor="' + TINT + '" ' : '') + 'style="' + (head ? 'font-weight:bold;color:' + NAVY + ';' : 'border-top:1px solid ' + LINE + ';') + 'font-size:10pt;">' + txt(cell) + '</td>';
+          });
+          h += '</tr>';
+        });
+        h += '</table>';
+      }
+    });
+    var a = answers[title];
+    if (a) {
+      h += '<table width="100%" cellpadding="10" cellspacing="0" style="margin-top:10px;"><tr><td bgcolor="' + TINT + '" style="border-left:4px solid ' + NAVY + ';">' +
+           '<div style="font-weight:bold;color:' + NAVY + ';font-size:10.5pt;">Your response</div>' +
+           '<div style="margin-top:4px;">' + (a.looks_great ? 'You ticked: this section looks great.' : 'Not ticked.') + '</div>' +
+           '<div style="margin-top:4px;"><b>Your comments:</b> ' + (a.comment ? esc(a.comment).replace(/\n/g, '<br>') : 'None.') + '</div>' +
+           '</td></tr></table>';
+    }
+  });
+
+  h += '<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:26px;"><tr><td height="1" bgcolor="' + LINE + '" style="font-size:1px;line-height:1px;">&nbsp;</td></tr></table>';
+  h += '<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px;"><tr>' +
+       '<td valign="middle" style="font-size:9pt;color:#555555;"><img src="' + mmb + '" height="20" style="vertical-align:middle;"> &nbsp;Prepared by Adam Norris, My Marketing Broker</td>' +
+       '<td valign="middle" align="right" style="font-size:9pt;color:#555555;">' + esc(CLIENT) + ' &nbsp;|&nbsp; ' + today + '</td></tr></table>';
+  h += '</body></html>';
+  return h;
+}
+
 var ENDPOINT = "https://script.google.com/macros/s/AKfycbyF8qn0gY4rDJzfJg48LJFT2FTOTUeK-pYHEJUNv5cwH1hDNvVEMuMf34IlDruCcZhdPw/exec";
 var CLIENT = "Simply Human Resources", SERVICE = "Performance Management", CONTACT = "Karen";
 var SECTIONS = ["The goal for this service", "The problems this service solves", "What I'd say about this service", "The proof for this service", "The offer for this service", "Anything I shouldn't say", "Anything you'd like to add"];
@@ -277,7 +348,7 @@ document.getElementById('send').addEventListener('click', function(){
     return {title: t, looks_great: tick, comment: text};
   });
   document.body.classList.add('done');
-  var receipt = '<!doctype html>' + document.documentElement.outerHTML.replace(/<script[\s\S]*?<\/script>/g, '');
+  var receipt = buildReceipt(sections);
   var payload = {client: CLIENT, service: SERVICE, contact: CONTACT, test: /[?&]test=1/.test(location.search), submitted_at: new Date().toISOString(), sections: sections, receipt_html: receipt};
   fetch(ENDPOINT, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload)})
     .then(function(){ window.scrollTo({top: document.getElementById('thanks').offsetTop - 40, behavior:'smooth'}); })
