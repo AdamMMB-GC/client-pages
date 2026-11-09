@@ -278,7 +278,7 @@ document.getElementById('send').addEventListener('click', function(){
   });
   document.body.classList.add('done');
   var receipt = '<!doctype html>' + document.documentElement.outerHTML.replace(/<script[\s\S]*?<\/script>/g, '');
-  var payload = {client: CLIENT, service: SERVICE, contact: CONTACT, submitted_at: new Date().toISOString(), sections: sections, receipt_html: receipt};
+  var payload = {client: CLIENT, service: SERVICE, contact: CONTACT, test: /[?&]test=1/.test(location.search), submitted_at: new Date().toISOString(), sections: sections, receipt_html: receipt};
   fetch(ENDPOINT, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload)})
     .then(function(){ window.scrollTo({top: document.getElementById('thanks').offsetTop - 40, behavior:'smooth'}); })
     .catch(function(){ document.body.classList.remove('done'); document.getElementById('err').style.display='block'; btn.disabled=false; btn.textContent='Send my feedback'; });
