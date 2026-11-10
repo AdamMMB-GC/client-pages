@@ -54,6 +54,23 @@
   .qa textarea { width:100%; min-height:72px; border:1px solid var(--line); border-radius:6px; padding:10px 12px; font:inherit; font-size:14px; color:var(--ink); resize:vertical; }
   .qa textarea:focus { outline:2px solid var(--accent, var(--teal)); border-color:var(--accent, var(--teal)); }
   body.done .qa .yn, body.done .qa textarea { display:none; }
+  .pl { margin-top:14px; }
+  .plopt { display:flex; gap:12px; align-items:flex-start; border:1px solid var(--line); border-radius:8px; padding:12px 14px; background:#fff; margin-top:10px; cursor:pointer; }
+  .plopt input { width:20px; height:20px; margin-top:3px; flex:none; accent-color:var(--accent, var(--teal)); }
+  .plopt .pltext { display:block; font-weight:600; color:var(--dark, var(--navy)); }
+  .plopt .plwhy { display:block; font-size:13px; color:#555; margin-top:2px; }
+  .pl textarea { display:none; width:100%; min-height:64px; margin-top:10px; border:1px solid var(--line); border-radius:6px; padding:10px 12px; font:inherit; font-size:14px; color:var(--ink); resize:vertical; }
+  .pl.own textarea { display:block; }
+  .pl textarea:focus { outline:2px solid var(--accent, var(--teal)); border-color:var(--accent, var(--teal)); }
+  body.done .plopt, body.done .pl textarea { display:none; }
+  .signoff { border:1px solid var(--line); border-left:5px solid var(--accent, var(--teal)); border-radius:8px; padding:18px 20px 20px; background:#fff; text-align:left; margin-bottom:16px; }
+  .signoff.ask { border-left-color:var(--dark, var(--navy)); }
+  .signoff .next { font-size:14px; color:#555; margin:0 0 14px; }
+  .signoff textarea { width:100%; min-height:72px; margin:4px 0 14px; border:1px solid var(--line); border-radius:6px; padding:10px 12px; font:inherit; font-size:14px; color:var(--ink); resize:vertical; }
+  .signoff textarea:focus { outline:2px solid var(--accent, var(--teal)); border-color:var(--accent, var(--teal)); }
+  .thanks .t-approved { display:none; }
+  body.approved .thanks .t-changes { display:none; }
+  body.approved .thanks .t-approved { display:block; }
   .submit { text-align:center; padding:10px 0 36px; }
   .btn { display:inline-block; background:var(--accent, var(--teal)); color:#fff; font-weight:600; font-size:16px; border:0; border-radius:8px; padding:14px 34px; cursor:pointer; font-family:inherit; }
   .btn:disabled { opacity:.6; cursor:default; }
@@ -65,7 +82,7 @@
   body.done .answered { display:block; margin-top:14px; background:var(--tint); border-radius:8px; padding:12px 16px; font-size:14px; }
   .answered b { color:var(--dark, var(--navy)); }
   .err { color:#b3261e; font-size:14px; margin-top:10px; display:none; }
-  @media print { .fb, .submit, .thanks, .qa .yn, .qa textarea { display:none !important; } .answered { display:block !important; } body { font-size:12px; } }
+  @media print { .fb, .submit, .thanks, .qa .yn, .qa textarea, .plopt, .pl textarea { display:none !important; } .answered { display:block !important; } body { font-size:12px; } }
 </style>
 </head>
 <body>
@@ -131,7 +148,7 @@
   <div class="wrap">
     <h2>Your approved list for this service</h2>
     <p>Everything below is what I'd like to be able to say about your performance management service. Once you're happy with it, this becomes the approved list, and anything created for this service later will line up with it. If something new comes up, I'll check it with you first.</p>
-    <p class="howto">Under a section you're happy with, you can tick "This section looks great" and add anything you'd change. Where I have a question, please answer it just below, so I know exactly which one you're answering. Every comment helps, however small. When you're finished, click Send at the bottom and a copy comes to you by email.</p>
+    <p class="howto">Under a section you're happy with, you can tick "This section looks great" and add anything you'd change. Where I have a question, please answer it just below, so I know exactly which one you're answering. Every comment helps, however small. When you're finished, you can approve it at the bottom, with your answers and changes included, and a copy comes to you by email. If you'd like to ask me something first, there's a place for that too.</p>
   </div>
 </section>
 
@@ -173,6 +190,15 @@
       <tr><td>Performance management for aged care, disability and NDIS providers, named as sectors you work with.</td><td>New: a clear space in your market</td></tr>
       <tr><td>For organisations past 20 staff, where several managers each handle performance their own way.</td><td>New: from our onboarding call</td></tr>
     </table>
+    <p>I've also put together a few options for the one line I'd lead with for this service. I've marked the one I'd recommend and why. Which feels most like you? Your own wording is very welcome too.</p>
+    <div class="pl" id="pl">
+      <label class="plopt"><input type="radio" name="pl" value="0"><span><span class="pltext">Performance management for aged care, disability and community organisations, where every manager handles it the same way.</span><span class="plwhy">The one I'd recommend. It names the sectors where I found the most room for you, and what changes for the organisation.</span></span></label>
+      <label class="plopt"><input type="radio" name="pl" value="1"><span><span class="pltext">When care is your work, performance conversations deserve the same care.</span><span class="plwhy">Another option. A warmer line that speaks to how it feels for the people you work with.</span></span></label>
+      <label class="plopt"><input type="radio" name="pl" value="2"><span><span class="pltext">Performance management for community and not-for-profit organisations past 20 staff: one clear way, used by every manager.</span><span class="plwhy">Another option. It leans only on what your website already says today.</span></span></label>
+      <label class="plopt"><input type="radio" name="pl" value="own"><span><span class="pltext">I'd like to use my own wording</span><span class="plwhy">Please write it just below, in your own words.</span></span></label>
+      <textarea class="pl-own" placeholder="Your own line, in your words"></textarea>
+      <div class="answered" id="ans-pl"></div>
+    </div>
 
     <div class="fb">
       <label class="tick"><input type="checkbox" class="tick-3"> This section looks great</label>
@@ -259,12 +285,23 @@
 
 <div class="wrap">
   <div class="submit">
-    <button class="btn" id="send">Send my feedback</button>
-    <p class="err" id="err">Sorry, that didn't go through. Please try again, or reply to my email with your thoughts.</p>
+    <div class="signoff">
+      <h3>When you're happy with it</h3>
+      <p class="next">Your approval includes the answers and changes you've written above, exactly as you've written them. I'll add them in and send you the final version for your records.</p>
+      <button class="btn" id="send-approve">I approve this, with my answers and changes above</button>
+    </div>
+    <div class="signoff ask">
+      <h3>If you'd like to ask me something first</h3>
+      <textarea id="ask" placeholder="Your question, in your own words"></textarea>
+      <button class="btn alt" id="send-question">I have a question before I approve</button>
+    </div>
+    <p class="err" id="err"></p>
   </div>
+  <div class="answered" id="ans-ask"></div>
   <div class="thanks" id="thanks">
     <h2>Thank you, Karen</h2>
-    <p>Your feedback has come through, and a copy is on its way to your inbox for your records. I'll read it carefully and lock this service in, then be in touch.</p>
+    <p class="t-changes">Your question has come through, and a copy is on its way to your inbox for your records. I'll come back to you shortly, and this page will be here for you to approve whenever you're ready.</p>
+    <p class="t-approved">Your approval has come through, and a copy is on its way to your inbox for your records. I'll add in your answers and changes exactly as you've written them and send you the final version. If anything in your answers needs a quick check, I'll be in touch first.</p>
     <p><button class="btn alt" onclick="window.print()">Save a copy as PDF</button></p>
   </div>
 </div>
@@ -289,14 +326,24 @@ function buildReceipt(sections) {
   var answers = {};
   var questions = {};
   sections.forEach(function (s) { answers[s.title] = s; if (s.kind === 'question') questions[s.n] = s; });
+  // Set by the page before this runs: 'approved' or 'changes', and the positioning line the client chose (or null).
+  var approved = (typeof STATUS !== 'undefined') && STATUS === 'approved';
+  var choice = (typeof LINE_CHOICE !== 'undefined') ? LINE_CHOICE : null;
 
   var h = '<html><head><meta charset="utf-8"></head><body style="' + F + 'color:' + INK + ';font-size:10.5pt;line-height:1.45;margin:0;">';
   h += '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
        '<td width="50%" valign="middle" style="border-bottom:3px solid ' + TEAL + ';padding-bottom:10px;"><img src="' + logo + '" height="62"></td>' +
        '<td width="50%" valign="middle" align="right" style="border-bottom:3px solid ' + TEAL + ';padding-bottom:10px;"><div style="font-size:20pt;font-weight:bold;color:' + INK + ';">Service Analysis</div>' +
        '<div style="font-size:12pt;font-weight:bold;color:' + NAVY + ';">' + esc(SERVICE) + '</div>' +
-       '<div style="font-size:9pt;color:#555555;">Your feedback, received ' + today + '</div></td></tr></table>';
-  h += '<p style="margin:14px 0 4px 0;">' + esc(CONTACT) + ', this is your copy of the service analysis and the feedback you sent me. Thank you for taking the time with it.</p>';
+       '<div style="font-size:9pt;color:#555555;">' + (approved ? 'Approved by you, ' : 'Your question, received ') + today + '</div></td></tr></table>';
+  var asked = answers['Question before approving'];
+  h += '<p style="margin:14px 0 4px 0;">' + esc(CONTACT) + (approved
+        ? ', this is your copy of the service analysis you approved, with the answers and changes you wrote. Thank you for taking the time with it. I\'ll add them in exactly as written and send you the final version.'
+        : ', this is your copy of the service analysis as it stands, with what you\'ve written so far. Thank you for taking the time with it. I\'ll come back to you on your question, and the page will be there for you to approve when you\'re ready.') + '</p>';
+  if (asked && asked.comment) {
+    h += '<table width="100%" cellpadding="10" cellspacing="0" style="margin-top:10px;"><tr><td bgcolor="' + TINT + '" style="background-color:' + TINT + ';border-left:4px solid ' + NAVY + ';">' +
+         '<div style="font-weight:bold;color:' + NAVY + ';font-size:10.5pt;">Your question</div><div style="margin-top:4px;">' + esc(asked.comment).replace(/\n/g, '<br>') + '</div></td></tr></table>';
+  }
 
   Array.prototype.forEach.call(document.querySelectorAll('section'), function (sec) {
     var h2 = sec.querySelector('h2'); if (!h2) return;
@@ -317,6 +364,18 @@ function buildReceipt(sections) {
                '<td valign="top" style="' + (i ? 'border-top:1px solid ' + LINE + ';' : '') + '">' + txt(c.querySelector('p')) + '</td></tr>';
         });
         h += '</table>';
+      } else if (el.classList.contains('pl')) {
+        h += '<table width="100%" cellpadding="7" cellspacing="0" style="margin-top:8px;border:1px solid ' + LINE + ';">' +
+             '<tr><td bgcolor="' + TINT + '" style="background-color:' + TINT + ';font-weight:bold;color:' + NAVY + ';font-size:10pt;">The line I\'d lead with</td></tr>';
+        Array.prototype.forEach.call(el.querySelectorAll('.plopt input:not([value="own"])'), function (r) {
+          var box = r.parentNode;
+          h += '<tr><td valign="top" style="border-top:1px solid ' + LINE + ';font-size:10pt;"><b>' + txt(box.querySelector('.pltext')) + '</b><br><span style="color:#555555;font-size:9pt;">' + txt(box.querySelector('.plwhy')) + '</span></td></tr>';
+        });
+        h += '</table>';
+        h += '<table width="100%" cellpadding="10" cellspacing="0" style="margin-top:10px;page-break-inside:avoid;"><tr><td bgcolor="' + TINT + '" style="background-color:' + TINT + ';border-left:4px solid ' + NAVY + ';">' +
+             '<div style="font-weight:bold;color:' + NAVY + ';font-size:10.5pt;">The line you chose</div>' +
+             (choice ? '<div style="margin-top:4px;">' + esc(choice.line) + (choice.own ? ' <span style="color:#555555;">(your own wording)</span>' : '') + '</div>'
+                     : '<div style="margin-top:4px;color:#555555;">No line chosen yet.</div>') + '</td></tr></table>';
       } else if (el.classList.contains('qa')) {
         var q = questions[el.getAttribute('data-q')], reply = '';
         if (q && q.answer) reply += '<div style="margin-top:4px;"><b>Your answer:</b> ' + esc(q.answer) + '</div>';
@@ -358,9 +417,40 @@ function buildReceipt(sections) {
 var ENDPOINT = "https://script.google.com/macros/s/AKfycbyF8qn0gY4rDJzfJg48LJFT2FTOTUeK-pYHEJUNv5cwH1hDNvVEMuMf34IlDruCcZhdPw/exec";
 var CLIENT = "Simply Human Resources", CLIENT_CODE = "shr", SERVICE = "Performance Management", CONTACT = "Karen";
 var ITEMS = [{"kind": "section", "k": 0, "title": "The goal for this service"}, {"kind": "section", "k": 1, "title": "Your focus, and the space around it"}, {"kind": "section", "k": 2, "title": "The problems this service solves"}, {"kind": "section", "k": 3, "title": "What I'd say about this service"}, {"kind": "question", "k": 4, "n": 1, "title": "Q1: Do you have a performance management example, kept anonymous, that you'd be happy for me to use?", "section": "The proof for this service", "yes_no": true}, {"kind": "question", "k": 5, "n": 2, "title": "Q2: Would any of the client quotes you're gathering speak to performance management, and may I use them for this service too?", "section": "The proof for this service", "yes_no": true}, {"kind": "question", "k": 6, "n": 3, "title": "Q3: Your website says \"Fixed-fee options available where appropriate\". Would you be comfortable sharing a starting price or a fixed-fee example? If you'd prefer, I can say pricing is on enquiry.", "section": "The offer for this service", "yes_no": true}, {"kind": "question", "k": 7, "n": 4, "title": "Q4: What is the first step when someone gets in touch about a performance matter? For example, is there a first conversation at no cost?", "section": "The offer for this service", "yes_no": false}, {"kind": "question", "k": 8, "n": 5, "title": "Q5: How soon can someone expect to hear back from you?", "section": "The offer for this service", "yes_no": false}, {"kind": "question", "k": 9, "n": 6, "title": "Q6: Is there anything else I should not say or promise about this service?", "section": "Anything I shouldn't say", "yes_no": true}, {"kind": "question", "k": 10, "n": 7, "title": "Q7: Is there anything I haven't thought of that you'd like me to know, and that you feel is important for marketing this service?", "section": "Anything you'd like to add", "yes_no": true}];
+var LINES = ["Performance management for aged care, disability and community organisations, where every manager handles it the same way.", "When care is your work, performance conversations deserve the same care.", "Performance management for community and not-for-profit organisations past 20 staff: one clear way, used by every manager."];
+var STATUS = '', LINE_CHOICE = null;
 function cleanText(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g,'<br>'); }
-document.getElementById('send').addEventListener('click', function(){
-  var btn = this; btn.disabled = true; btn.textContent = 'Sending...';
+function lineChoice(){
+  var p = document.querySelector('input[name="pl"]:checked');
+  if (!p) return null;
+  if (p.value === 'own') {
+    var t = document.querySelector('.pl-own').value.trim();
+    return t ? {line: t, own: true, how: "the client's own wording"} : null;
+  }
+  var i = parseInt(p.value, 10);
+  return {line: LINES[i], own: false, how: (i === 0 ? 'the recommended line' : 'another option') + ', chosen on the page'};
+}
+Array.prototype.forEach.call(document.querySelectorAll('input[name="pl"]'), function(r){
+  r.addEventListener('change', function(){
+    document.getElementById('pl').classList.toggle('own', document.querySelector('input[name="pl"]:checked').value === 'own');
+  });
+});
+function say(msg){ var e = document.getElementById('err'); e.textContent = msg; e.style.display = 'block'; }
+function submitPage(status, btn){
+  var choice = lineChoice();
+  var ask = document.getElementById('ask').value.trim();
+  document.getElementById('err').style.display = 'none';
+  if (status === 'approved' && !choice) {
+    var own = document.querySelector('input[name="pl"][value="own"]:checked');
+    say(own ? "Before you approve, please write your own line in the box under \"I'd like to use my own wording\"."
+            : "Before you approve, please choose the line you'd like me to lead with, under \"What I'd say about this service\". Your own wording is very welcome too.");
+    return;
+  }
+  if (status === 'question' && !ask) { say("Please write your question in the box just above, so I know what you'd like to ask."); return; }
+  var buttons = document.querySelectorAll('.submit .btn'), label = btn.textContent;
+  Array.prototype.forEach.call(buttons, function(b){ b.disabled = true; });
+  btn.textContent = 'Sending...';
+  STATUS = status; LINE_CHOICE = choice;
   var sections = ITEMS.map(function(it){
     var text = document.querySelector('.text-'+it.k).value.trim();
     var a = document.getElementById('ans-'+it.k);
@@ -379,13 +469,29 @@ document.getElementById('send').addEventListener('click', function(){
     a.innerHTML = parts.length ? parts.join(' ') : '<i>No response for this section.</i>';
     return {title: it.title, looks_great: tick, comment: text};
   });
+  document.getElementById('ans-pl').innerHTML = choice ? '<b>The line you chose:</b> ' + cleanText(choice.line) : '<i>No line chosen yet.</i>';
+  document.getElementById('ans-ask').innerHTML = ask ? '<b>Your question:</b> ' + cleanText(ask) : '';
+  document.getElementById('ans-ask').style.display = ask ? '' : 'none';
+  // Four extra columns in the answers Sheet: the chosen line, how it was chosen, any question, and whether this is the sign-off.
+  var here = "What I'd say about this service";
+  sections.push({kind:'question', title:'Positioning line', section: here, yes_no:false, answer:'', comment: choice ? choice.line : ''});
+  sections.push({kind:'question', title:'Positioning line, how chosen', section: here, yes_no:false, answer:'', comment: choice ? choice.how : ''});
+  sections.push({kind:'question', title:'Question before approving', section:'', yes_no:false, answer:'', comment: ask});
+  sections.push({kind:'question', title:'Status', section:'', yes_no:false, answer:'', comment: status === 'approved' ? 'Approved' : 'Question before approving'});
   document.body.classList.add('done');
+  if (status === 'approved') document.body.classList.add('approved');
   var receipt = buildReceipt(sections);
   var payload = {client: CLIENT, client_code: CLIENT_CODE, service: SERVICE, contact: CONTACT, test: /[?&]test=1/.test(location.search), submitted_at: new Date().toISOString(), sections: sections, receipt_html: receipt};
   fetch(ENDPOINT, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload)})
     .then(function(){ window.scrollTo({top: document.getElementById('thanks').offsetTop - 40, behavior:'smooth'}); })
-    .catch(function(){ document.body.classList.remove('done'); document.getElementById('err').style.display='block'; btn.disabled=false; btn.textContent='Send my feedback'; });
-});
+    .catch(function(){
+      document.body.classList.remove('done'); document.body.classList.remove('approved');
+      Array.prototype.forEach.call(buttons, function(b){ b.disabled = false; }); btn.textContent = label;
+      say("Sorry, that didn't go through. Please try again, or reply to my email with your thoughts.");
+    });
+}
+document.getElementById('send-approve').addEventListener('click', function(){ submitPage('approved', this); });
+document.getElementById('send-question').addEventListener('click', function(){ submitPage('question', this); });
 </script>
 </body>
 </html>
