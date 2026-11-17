@@ -110,6 +110,13 @@ button.go{background:var(--emberd);color:#fff}
 button.alt{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.4)}
 .msg{font-size:14.5px;color:var(--gold);min-height:22px;margin-top:12px}
 .foot{font-size:13.5px;color:var(--sub);margin-top:26px}
+.rban{background:var(--navy);color:#fff;border-radius:16px;padding:16px 20px;margin-bottom:22px;font-size:16px}
+.rban span{display:block;color:var(--subd);font-size:14px;margin-top:2px}
+.review .keep,.review .intro,.review .acts,.review .foot,.review .send p{display:none}
+.review .fb.has{background:#FFF4D9;border-top:3px solid var(--gold)}
+.review .fb textarea[readonly]{background:#fff;border-color:var(--gold)}
+.review .fb.none textarea{background:transparent;border-style:dashed}
+.review .fb .q{display:none}
 
 @media (max-width:860px){h1{font-size:32px}.logos,.type,.hero,.bits{grid-template-columns:1fr}.smalls{grid-template-columns:1fr 1fr}.pal{grid-template-columns:repeat(3,1fr)}.hero h3{font-size:34px}.nav ul li:not(:last-child){display:none}.wm{font-size:38px}.sh,.body,.fb{padding-left:20px;padding-right:20px}}
 </style>
@@ -267,18 +274,60 @@ button.alt{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(2
     out.push('Overall:');out.push(overall.value.trim()||'(nothing added)');
     return out.join('\n');
   }
+  function b64u(bytes){var s='';for(var i=0;i<bytes.length;i++)s+=String.fromCharCode(bytes[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+  function unb64u(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
+  function pack(obj){
+    var raw=new TextEncoder().encode(JSON.stringify(obj));
+    if(window.CompressionStream){
+      return new Response(new Blob([raw]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer().then(function(b){return 'z'+b64u(new Uint8Array(b));});
+    }
+    return Promise.resolve('j'+b64u(raw));
+  }
+  function unpack(s){
+    var kind=s.charAt(0),u=unb64u(s.slice(1));
+    if(kind==='z'){return new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text().then(JSON.parse);}
+    return Promise.resolve(JSON.parse(new TextDecoder().decode(u)));
+  }
+  function reviewLink(){
+    var st=state();st.d=new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'2-digit',year:'numeric'});
+    return pack(st).then(function(code){return location.origin+location.pathname+'#r='+code;});
+  }
+  // Adam's view: the page opened from Megan's link shows her ticks and comments under each part
+  if(location.hash.indexOf('#r=')===0){
+    unpack(location.hash.slice(3)).then(function(st){
+      document.body.classList.add('review');
+      var ban=document.createElement('div');ban.className='rban';
+      ban.innerHTML='<b>Megan\'s feedback</b>'+(st.d?' · sent '+st.d:'')+'<span>Her ticks and comments sit under each part.</span>';
+      document.querySelector('.page').insertBefore(ban,document.querySelector('.page').firstChild);
+      (st.p||[]).forEach(function(v,i){var s=secs[i];if(!s)return;
+        var cb=s.querySelector('input'),ta=s.querySelector('textarea');
+        cb.checked=!!v.t;cb.disabled=true;ta.value=v.c||'';ta.readOnly=true;
+        if(!v.c){ta.placeholder='No comment';}
+        s.querySelector('.fb').classList.add(v.t||v.c?'has':'none');
+      });
+      overall.value=st.o||'';overall.readOnly=true;
+      document.querySelector('.send h2').textContent='Megan\'s overall thoughts';
+    }).catch(function(){msg.textContent='Sorry, this feedback link could not be read.';});
+  }
   function copy(t){
     function fb(){var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(ta);return ok;}
     if(navigator.clipboard&&navigator.clipboard.writeText){return navigator.clipboard.writeText(t).then(function(){return true;},function(){return fb();});}
     return Promise.resolve(fb());
   }
-  document.getElementById('copy').addEventListener('click',function(){copy(text()).then(function(ok){msg.textContent=ok?'Copied. Paste it into a reply to Adam\'s email.':'Sorry, the copy did not work. Please type your thoughts into a reply to Adam\'s email.';});});
+  document.getElementById('copy').addEventListener('click',function(){
+    reviewLink().then(function(link){
+      var t='My thoughts on the Inner Circle Marketing look, shown on the page:\n'+link+'\n\n'+text();
+      copy(t).then(function(ok){msg.textContent=ok?'Copied. Paste it into a reply to Adam\'s email.':'Sorry, the copy did not work. Please type your thoughts into a reply to Adam\'s email.';});
+    });
+  });
   document.getElementById('send').addEventListener('click',function(){
-    var t=text();
-    copy(t).then(function(){
-      var body=t.length>1500?'My thoughts are copied: please paste them here.':t;
-      window.location.href='mailto:adam@mmbroker.com.au?subject='+encodeURIComponent('My thoughts on the Inner Circle Marketing look')+'&body='+encodeURIComponent(body);
-      msg.textContent=t.length>1500?'Your email is opening. Your thoughts are copied: paste them into it, then send.':'Your email is opening with your thoughts in it. Press send when you are ready.';
+    reviewLink().then(function(link){
+      var t=text(),intro='My thoughts, shown on the page under each part:\n'+link+'\n\n';
+      var full=intro+t,body=(encodeURIComponent(full).length>7000)?intro+'(The rest is in the link above.)':full;
+      copy(full).then(function(){
+        window.location.href='mailto:adam@mmbroker.com.au?subject='+encodeURIComponent('My thoughts on the Inner Circle Marketing look')+'&body='+encodeURIComponent(body);
+        msg.textContent='Your email is opening with your thoughts in it. Press send when you are ready. (They are also copied, in case it does not open.)';
+      });
     });
   });
   var note=document.getElementById('egnote');
