@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light only">
+<title>Platinum Surface Solutions: Your Google Profile, Next Steps</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap">
+<style>
+  :root{color-scheme:light only;
+    --accent:#CCA021; --accent-ink:#0C1015; --text:#0C1015; --muted:#494B4F;
+    --bg:#FFFAE8; --card:#FFFFFF; --border:#D8D2CD; --ok:#2E7D4F; --warn:#B7791F;
+    --mmb-blue:#A9CDD8; --mmb-ink:#070E16; --radius:12px;
+    --font-h:'Saira Condensed',sans-serif; --font-b:'Roboto',sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:17px;line-height:1.55}
+  .wrap{max-width:860px;margin:0 auto;padding:0 16px}
+  .draft{background:var(--warn);color:#fff;text-align:center;font-weight:700;font-size:14px;letter-spacing:.08em;padding:8px 16px}
+  header{padding:28px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  header img{max-height:64px;max-width:220px}
+  .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .rule{height:4px;background:var(--accent);border-radius:2px;margin:4px 0 24px}
+  h1{font-family:var(--font-h);font-weight:700;font-size:clamp(28px,4.5vw,40px);line-height:1.15;margin:0 0 14px}
+  h2{font-family:var(--font-h);font-weight:700;font-size:23px;margin:0 0 6px}
+  h3{font-family:var(--font-h);font-weight:600;font-size:19px;margin:16px 0 4px}
+  p{margin:0 0 12px}
+  .note{background:var(--card);border:1px solid var(--border);border-left:6px solid var(--accent);border-radius:var(--radius);padding:20px 22px;margin:0 0 22px}
+  .note p:last-child{margin:0}
+  .how{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin:0 0 24px}
+  .how ul{margin:6px 0 0;padding-left:20px}
+  .progress{position:sticky;top:0;background:var(--bg);padding:10px 0 8px;z-index:5;border-bottom:1px solid var(--border)}
+  .bar{height:10px;background:var(--border);border-radius:5px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+  .progress small{display:block;margin-top:6px;color:var(--muted)}
+  .step{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .step.done{border-color:var(--ok)}
+  .step-head{display:flex;gap:14px;align-items:flex-start}
+  .num{flex:0 0 40px;height:40px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-family:var(--font-h);font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center}
+  .step.done .num{background:var(--ok);color:#fff}
+  .first{display:inline-block;background:var(--accent-ink);color:#fff;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;border-radius:999px;padding:2px 10px;margin-left:8px;vertical-align:middle}
+  .why{color:var(--muted);margin:0 0 6px}
+  .step ol{padding-left:22px;margin:8px 0 12px}
+  .step li{margin:5px 0}
+  .btn{display:inline-block;padding:11px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px;margin:4px 8px 4px 0;border:0;cursor:pointer;font-family:inherit}
+  .btn-go{background:var(--accent);color:var(--accent-ink)}
+  .btn-ask{background:var(--mmb-blue);color:var(--mmb-ink)}
+  .btn-copy{background:transparent;border:2px solid var(--border);color:var(--text)}
+  .see{background:var(--bg);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:15px}
+  .see b{color:var(--ok)}
+  .snag{font-size:15px;color:var(--muted);margin-top:8px}
+  .words{background:var(--bg);border:1px dashed var(--border);border-radius:8px;padding:12px 14px;margin:8px 0;white-space:pre-wrap;font-size:15px}
+  label.field{display:block;font-weight:600;margin:12px 0 4px}
+  textarea,input[type=text]{width:100%;font-family:inherit;font-size:16px;border:1px solid var(--border);border-radius:8px;padding:9px 11px;background:#fff;color:var(--text)}
+  textarea{min-height:64px;resize:vertical}
+  textarea:focus,input[type=text]:focus{outline:2px solid var(--accent)}
+  .tick{display:flex;align-items:center;gap:10px;margin-top:14px;font-weight:600;cursor:pointer}
+  .tick input,.choice input{width:22px;height:22px;accent-color:var(--ok)}
+  .choice{display:flex;align-items:center;gap:10px;margin:6px 0;cursor:pointer}
+  .warn{background:#FBECEA;border:2px solid #B3372F;border-left-width:8px;border-radius:10px;padding:14px 18px;margin:14px 0;color:#7A231D}
+  .warn-h{font-family:var(--font-h);font-weight:700;font-size:22px;letter-spacing:.01em;margin-bottom:4px;color:#B3372F}
+  .warn p{margin:0 0 4px;font-weight:500}
+  .stop{background:var(--accent-ink);color:#fff;border-radius:var(--radius);padding:18px 22px;margin:26px 0 18px;border-left:8px solid var(--accent)}
+  .stop h2{color:var(--accent)}
+  .stop p{margin:0}
+  .finish{border:2px solid var(--accent);text-align:center}
+  .finish .btn{font-size:17px}
+  .off{font-size:14px;color:var(--warn);font-weight:600;margin-top:6px;min-height:20px}
+  footer{margin-top:40px;background:var(--mmb-blue);color:var(--mmb-ink);font-family:'Space Grotesk','Plus Jakarta Sans',sans-serif}
+  footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 16px;flex-wrap:wrap}
+  .who{display:flex;align-items:center;gap:18px}
+  .who img.face{width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid #fff}
+  .who .name{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:22px;margin:0 0 2px}
+  .who a{color:var(--mmb-ink);text-decoration:none;display:block;font-size:16px;line-height:1.5}
+  .who .co{font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-top:4px;opacity:.8}
+  .mmb{width:96px;height:96px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;padding:10px}
+  .mmb img{max-width:100%;max-height:100%}
+  .prepared{text-align:center;font-size:13px;color:var(--muted);padding:14px 16px 24px}
+  @media (max-width:600px){ footer .wrap{justify-content:center;text-align:center} .who{flex-direction:column} .step-head{flex-direction:column} }
+</style>
+</head>
+<body>
+<div class="draft" id="draftBadge">DRAFT FOR ADAM. This is exactly what Zach will see. Sending is switched off.</div>
+<div class="wrap">
+  <header>
+    <img src="assets/client-logo.png" alt="Platinum Surface Solutions">
+    <span class="tag">Your Google profile &middot; next steps &middot; 18/11/2026</span>
+  </header>
+  <div class="rule"></div>
+
+  <h1>Getting Your Google Profile Verified</h1>
+
+  <div class="note">
+    <p>Hi Zach,</p>
+    <p>As you know, there has been a fair bit to clean up to get your Google Business Profile approved. I've now updated everything I can on your website, your Google Business Profile and your Facebook page, so they all show the same details.</p>
+    <p>There are a few things left, and the first one is the big one: setting up Google Search Console. This can often get a profile verified, as long as it's set up in the same Gmail as your Google Business Profile. Earlier today another business was verified straight away this way, with no video needed. That may not be the case for you, as you've already submitted a video, but it's well worth trying first.</p>
+    <p>The other items on this page are ones I'm not able to do for you, unfortunately, as they need to come from you. Would you mind working through the list in order, please, starting with Google Search Console? After step 1, steps 2 and 3 can be done straight away, and step 4 waits for an email from me.</p>
+    <p>Thank you, Zach.</p>
+  </div>
+
+  <div class="how">
+    <h2>How This Page Works</h2>
+    <ul>
+      <li>A <b>computer</b> is easiest, not your phone.</li>
+      <li>Tick each step when it's finished. Your ticks and notes are saved on this device, so you can close the page and come back.</li>
+      <li>Under every step there's a notes box, and an <b>Ask Adam</b> button if anything looks different to what's written here.</li>
+    </ul>
+  </div>
+
+  <div class="progress"><div class="bar"><i id="bar"></i></div><small id="count"></small></div>
+
+  <section class="step" id="sc-code" data-title="Connect your website to Google: get the code">
+    <div class="step-head"><div class="num">1</div><div style="flex:1">
+      <h2>Connect Your Website to Google: Get the Code <span class="first">Please do this first</span></h2>
+      <p class="why">This shows Google that the Gmail which owns your profile also owns your website. About five minutes.</p>
+      <ol>
+        <li>Press the button below. It opens Google Search Console in a new tab.</li>
+        <li>Look at the round picture in the top right. It needs to be the <b>same Gmail that owns your Google Business Profile</b> (your Gmail, not your Hotmail). If it's a different one, click the picture and switch account first.</li>
+        <li>If you see a <b>Start now</b> button, click it.</li>
+        <li>Two boxes appear. Use the <b>right-hand box</b>, called <b>URL prefix</b>.</li>
+        <li>Type this exactly: <b>https://platinumsurfacesolutions.com</b> and click <b>Continue</b>.</li>
+        <li>A box called <b>Verify ownership</b> appears. In the list, open <b>HTML tag</b> and click <b>Copy</b>.</li>
+        <li>Paste that line into the box below and press <b>Send the code to Adam</b>.</li>
+      </ol>
+      <a class="btn btn-go" href="https://search.google.com/search-console" target="_blank" rel="noopener">Open Google Search Console</a>
+      <a class="btn btn-ask" data-ask="1">Ask Adam</a>
+      <label class="field" for="code">The line Google gave you</label>
+      <textarea id="code" data-note="sc-code-line" placeholder='It starts with &lt;meta name="google-site-verification"'></textarea>
+      <button class="btn btn-go" id="sendCode" type="button">Send the code to Adam</button>
+      <div class="off" id="sendCodeMsg"></div>
+      <div class="see"><b>What happens next:</b> I add that line to your website, usually the same day, and email you to say it's ready. You can close the Google tab: the code stays the same. <b>While you wait, please go straight on to steps 2 and 3.</b></div>
+      <div class="warn" role="note">
+        <div class="warn-h">Please don't click Verify yet</div>
+        <p>This is step 4, and it only works once Adam tells you to do it.</p>
+        <p>In the meantime, please complete steps 2 and 3 until Adam tells you to go to step 4.</p>
+      </div>
+      <label class="field" for="n1">Notes for Adam (optional)</label>
+      <textarea id="n1" data-note="sc-code"></textarea>
+      <label class="tick"><input type="checkbox" data-step="sc-code"> Done, the code is sent</label>
+    </div></div>
+  </section>
+
+  <section class="step" id="abn" data-title="Update the address on your ABN record">
+    <div class="step-head"><div class="num">2</div><div style="flex:1">
+      <h2>Update the Address on Your ABN Record</h2>
+      <p class="why">Your ABN record still shows your old postcode, 4209. Google can check it, so it helps if it matches your Boyland address. Only the state and postcode are shown publicly.</p>
+      <ol>
+        <li>Press the button below. It opens the Australian Business Register's page on updating your ABN details.</li>
+        <li>Click <b>Continue with Digital ID</b> and log in.</li>
+        <li>Select <b>Update ABN record</b>, then <b>Business address</b>.</li>
+        <li>Change it to your Boyland address.</li>
+        <li>Select <b>Declaration</b>, then <b>Submit</b>.</li>
+      </ol>
+      <a class="btn btn-go" href="https://www.abr.gov.au/business-super-funds-charities/updating-or-cancelling-your-abn/update-your-abn-details" target="_blank" rel="noopener">Open the ABN update page</a>
+      <a class="btn btn-ask" data-ask="2">Ask Adam</a>
+      <div class="see"><b>You should now see:</b> your Boyland postcode, 4275, on your ABN details. The Register says online changes take effect straight away.</div>
+      <p class="snag">If you use an accountant or tax agent, they can make this change for you.</p>
+      <label class="field" for="n2">Notes for Adam (optional)</label>
+      <textarea id="n2" data-note="abn"></textarea>
+      <label class="tick"><input type="checkbox" data-step="abn"> Done, my ABN address is updated</label>
+    </div></div>
+  </section>
+
+  <section class="step" id="bni" data-title="Take your street address off your BNI page">
+    <div class="step-head"><div class="num">3</div><div style="flex:1">
+      <h2>Take Your Street Address Off Your BNI Page</h2>
+      <p class="why">Your BNI member page was showing a street address. Your Google profile now shows no street address, so it helps if BNI shows the suburb only.</p>
+      <ol>
+        <li>If you can edit your own BNI profile, remove the street line and leave <b>Boyland QLD 4275</b>.</li>
+        <li>If you can't, would you mind sending the message below to your chapter or BNI Gold Coast, please?</li>
+      </ol>
+      <div class="words" id="bniWords">Hi,
+
+Would you mind removing the street line from my member page, please, so it shows Boyland QLD 4275 only? I'd like my listing to match my Google profile.
+
+Thank you,
+Zach Donaldson
+Platinum Surface Solutions</div>
+      <button class="btn btn-copy" id="copyBni" type="button">Copy the message</button>
+      <a class="btn btn-ask" data-ask="3">Ask Adam</a>
+      <div class="see"><b>You should now see:</b> your BNI page showing the suburb, with no street address.</div>
+      <label class="field" for="n3">Notes for Adam (optional)</label>
+      <textarea id="n3" data-note="bni"></textarea>
+      <label class="tick"><input type="checkbox" data-step="bni"> Done, or the request is sent</label>
+    </div></div>
+  </section>
+
+  <div class="stop" id="stop">
+    <h2>Please Stop Here and Wait for My Email</h2>
+    <p>Step 4 only works once I've added Google's code to your website. I'll email you as soon as it's on, usually the same day you send it. Steps 2 and 3 don't need to wait: please do those straight away.</p>
+  </div>
+
+  <section class="step" id="sc-verify" data-title="Connect your website to Google: verify">
+    <div class="step-head"><div class="num">4</div><div style="flex:1">
+      <h2>Connect Your Website to Google: Verify</h2>
+      <p class="why">Only once you have my email saying the code is on your website. About five minutes.</p>
+      <ol>
+        <li>Press the button below, in the same Gmail as step 1.</li>
+        <li>Your website shows in the list, top left. Open it. If the <b>Verify ownership</b> box appears, open <b>HTML tag</b> and click <b>Verify</b>.</li>
+        <li>You should see a green tick and <b>Ownership verified</b>. Click <b>Go to property</b>.</li>
+        <li>Bottom left, click <b>Settings</b>, then <b>Users and permissions</b>.</li>
+        <li>Click <b>Add user</b>. Enter <b>adam@mmbroker.com.au</b>, set Permission to <b>Owner</b>, and click <b>Add</b>.</li>
+      </ol>
+      <a class="btn btn-go" href="https://search.google.com/search-console" target="_blank" rel="noopener">Open Google Search Console</a>
+      <a class="btn btn-ask" data-ask="4">Ask Adam</a>
+      <div class="see"><b>You should now see:</b> Ownership verified, and my email listed under Users and permissions as an Owner. You stay the main owner.</div>
+      <p class="snag">If Google says it couldn't find the code, wait a minute and click Verify once more. If it still doesn't work, press Ask Adam.</p>
+      <label class="field" for="n4">Notes for Adam (optional)</label>
+      <textarea id="n4" data-note="sc-verify"></textarea>
+      <label class="tick"><input type="checkbox" data-step="sc-verify"> Done, ownership is verified</label>
+    </div></div>
+  </section>
+
+  <div class="warn" role="note" id="warn5">
+    <div class="warn-h">Please don't do step 5 yet</div>
+    <p>Please wait until Adam gives you the go-ahead before you start step 5.</p>
+  </div>
+
+  <section class="step" id="gbp-check" data-title="See what Google offers on your profile">
+    <div class="step-head"><div class="num">5</div><div style="flex:1">
+      <h2>See What Google Offers on Your Profile</h2>
+      <p class="why">Once Adam gives you the go-ahead, this is where we find out whether Search Console has done the job. Two minutes.</p>
+      <ol>
+        <li>In the same Gmail as steps 1 and 4, press the button below. It opens your Google Business Profile.</li>
+        <li>Look for a <b>Get verified</b> or <b>Review issues</b> button and click it.</li>
+        <li>If Google verifies the profile straight away, that's the result we're hoping for.</li>
+        <li>If Google asks for a video instead, please <b>stop there</b> and don't record anything yet. I'd like to get you ready for that properly first.</li>
+        <li>Either way, write what Google showed you in the box below.</li>
+      </ol>
+      <a class="btn btn-go" href="https://business.google.com/locations" target="_blank" rel="noopener">Open my Google Business Profile</a>
+      <a class="btn btn-ask" data-ask="5">Ask Adam</a>
+      <label class="field" for="n5">What did Google show you?</label>
+      <textarea id="n5" data-note="gbp-check" placeholder="For example: verified, or asked for a video"></textarea>
+      <label class="tick"><input type="checkbox" data-step="gbp-check"> Done, I've checked</label>
+    </div></div>
+  </section>
+
+  <section class="step" id="hours" data-title="One quick question: Saturdays">
+    <div class="step-head"><div class="num">6</div><div style="flex:1">
+      <h2>One Quick Question, Please</h2>
+      <p>Your website and Google profile show <b>Monday to Saturday, 6 am to 6 pm</b>, which is what you told me in October. Your Facebook page was showing Monday to Friday, so I've updated it to match. Are Saturdays still right?</p>
+      <label class="choice"><input type="radio" name="sat" value="Yes, Monday to Saturday is right" data-choice="hours"> Yes, Monday to Saturday is right</label>
+      <label class="choice"><input type="radio" name="sat" value="No, please make it Monday to Friday" data-choice="hours"> No, please make it Monday to Friday</label>
+      <label class="field" for="n6">Anything to add? (optional)</label>
+      <textarea id="n6" data-note="hours"></textarea>
+      <label class="tick"><input type="checkbox" data-step="hours"> Done, answered</label>
+    </div></div>
+  </section>
+
+  <div class="step finish" id="finish">
+    <h2>All Finished?</h2>
+    <p>Press the button and your ticks, answers and notes come through to me. You can also press it part-way, if you'd like me to see where you're up to.</p>
+    <button class="btn btn-ask" id="sendAll" type="button">Send my answers to Adam</button>
+    <div class="off" id="sendAllMsg"></div>
+  </div>
+
+  <p class="prepared">Prepared by Adam Norris, My Marketing Broker. If a Google screen looks different to what's written here, please press Ask Adam on that step.</p>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="who">
+      <img class="face" src="assets/adam.webp" alt="Adam Norris">
+      <div>
+        <p class="name">Adam Norris</p>
+        <a href="tel:+61452692335">0452 692 335</a>
+        <a href="mailto:adam@mmbroker.com.au">adam@mmbroker.com.au</a>
+        <a href="https://mmbroker.com.au">mmbroker.com.au</a>
+        <div class="co">My Marketing Broker</div>
+      </div>
+    </div>
+    <div class="mmb"><img src="assets/mmb-logo.png" alt="My Marketing Broker"></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* DRAFT = true: Adam's preview, nothing is sent. Set to false only when Adam says "publish". */
+  var DRAFT = false;
+  var TO = 'adam@mmbroker.com.au';
+  var CLIENT = 'Platinum Surface Solutions';
+  var KEY = 'gbp-next-steps-platinum-surface-solutions';
+  var OFF = 'This is the draft, so nothing was sent.';
+
+  if(!DRAFT){ document.getElementById('draftBadge').style.display='none'; }
+
+  var saved = {ticks:{},notes:{},choice:{}};
+  try{ var s = JSON.parse(localStorage.getItem(KEY)||'null'); if(s){ saved.ticks=s.ticks||{}; saved.notes=s.notes||{}; saved.choice=s.choice||{}; } }catch(e){}
+  function store(){ try{ localStorage.setItem(KEY, JSON.stringify(saved)); }catch(e){} }
+
+  var boxes = [].slice.call(document.querySelectorAll('.tick input'));
+  var notes = [].slice.call(document.querySelectorAll('[data-note]'));
+  var radios = [].slice.call(document.querySelectorAll('[data-choice]'));
+
+  function paint(){
+    var done = 0;
+    boxes.forEach(function(b){ b.closest('.step').classList.toggle('done', b.checked); if(b.checked) done++; });
+    document.getElementById('bar').style.width = (boxes.length ? done/boxes.length*100 : 0) + '%';
+    document.getElementById('count').textContent = done + ' of ' + boxes.length + ' steps done';
+  }
+  boxes.forEach(function(b){
+    b.checked = !!saved.ticks[b.dataset.step];
+    b.addEventListener('change', function(){ saved.ticks[b.dataset.step] = b.checked; store(); paint(); });
+  });
+  notes.forEach(function(n){
+    n.value = saved.notes[n.dataset.note] || '';
+    n.addEventListener('input', function(){ saved.notes[n.dataset.note] = n.value; store(); });
+  });
+  radios.forEach(function(r){
+    r.checked = saved.choice[r.dataset.choice] === r.value;
+    r.addEventListener('change', function(){ saved.choice[r.dataset.choice] = r.value; store(); });
+  });
+  paint();
+
+  function mail(subject, body, msgEl){
+    if(DRAFT){ if(msgEl) msgEl.textContent = OFF; return; }
+    window.location.href = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    if(msgEl) msgEl.textContent = 'Your email has opened with everything filled in. Please press Send in your email.';
+  }
+
+  [].slice.call(document.querySelectorAll('[data-ask]')).forEach(function(a){
+    var sec = a.closest('.step'), n = a.dataset.ask, title = sec.dataset.title;
+    a.href = '#'; a.setAttribute('role','button');
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var off = sec.querySelector('.askmsg');
+      if(!off){ off = document.createElement('div'); off.className = 'off askmsg'; a.parentNode.insertBefore(off, a.nextSibling); }
+      mail('Google profile, step ' + n + ': ' + CLIENT, "Hi Adam,\n\nI have a question about step " + n + " (" + title + ").\n\nWhat I see: \n", off);
+    });
+  });
+
+  document.getElementById('sendCode').addEventListener('click', function(){
+    var code = document.getElementById('code').value.trim(), msg = document.getElementById('sendCodeMsg');
+    if(!code){ msg.textContent = 'Please paste the line from Google into the box first.'; return; }
+    mail('Search Console code: ' + CLIENT, "Hi Adam,\n\nHere is the line from Google Search Console:\n\n" + code + "\n", msg);
+  });
+
+  document.getElementById('copyBni').addEventListener('click', function(){
+    var b = this, t = document.getElementById('bniWords').textContent;
+    if(navigator.clipboard){ navigator.clipboard.writeText(t).then(function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy the message'; }, 1500); }); }
+  });
+
+  document.getElementById('sendAll').addEventListener('click', function(){
+    var out = ['Hi Adam,', '', 'Here is where I am up to on my Google profile steps.', ''];
+    [].slice.call(document.querySelectorAll('section.step')).forEach(function(sec, i){
+      var b = sec.querySelector('.tick input');
+      out.push((b && b.checked ? '[done] ' : '[not yet] ') + (i+1) + '. ' + sec.dataset.title);
+      [].slice.call(sec.querySelectorAll('[data-choice]')).forEach(function(r){ if(r.checked) out.push('   Answer: ' + r.value); });
+      [].slice.call(sec.querySelectorAll('[data-note]')).forEach(function(n){ if(n.value.trim()) out.push('   Note: ' + n.value.trim()); });
+    });
+    mail('Google profile steps: ' + CLIENT, out.join('\n') + '\n', document.getElementById('sendAllMsg'));
+  });
+})();
+</script>
+</body>
+</html>
